@@ -1,0 +1,4 @@
+#!/bin/sh
+echo Starting with $1s delay
+sleep $1
+./handler
