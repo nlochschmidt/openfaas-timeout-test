@@ -8,7 +8,7 @@ functions:
     handler: ./timeout-test
     image: nlochschmidt/timeout-test:0.0.2
     environment:
-      fprocess: ./start 10
+      fprocess: ./start 0
       write_timeout: 10s
       read_timeout: 10s
       exec_timeout: 10s
@@ -18,12 +18,22 @@ functions:
     handler: ./timeout-test
     image: nlochschmidt/timeout-test:0.0.2
     environment:
-      fprocess: ./start 10
+      fprocess: ./start 0
       write_timeout: 10s
       #read_timeout: 10s
       #exec_timeout: 55s
       handler_wait_duration: 15s
-  write-time-out-only-on-early-request:
+  exec-time-out-on-each-request:
+    lang: golang-middleware
+    handler: ./timeout-test
+    image: nlochschmidt/timeout-test:0.0.2
+    environment:
+      fprocess: ./start 0
+      write_timeout: 1m
+      #read_timeout: 10s
+      exec_timeout: 5s
+      handler_wait_duration: 15s
+  internal-server-error-on-early-request-timeout-afterwards:
     lang: golang-middleware
     handler: ./timeout-test
     image: nlochschmidt/timeout-test:0.0.2
@@ -32,7 +42,7 @@ functions:
       #write_timeout: 10s
       #read_timeout: 10s
       exec_timeout: 5s
-      handler_wait_duration: 1s
+      handler_wait_duration: 10s
 
 configuration:
   templates:
